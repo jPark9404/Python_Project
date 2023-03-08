@@ -1,0 +1,64 @@
+
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+  {% if category %}{{ category.name }}
+  {% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/base_shop.css' %}" />
+
+<div class="row">
+    <div class="col-2 ">
+		<section class="panel" id="sidebar" style="position:absolute; margin-top:1%;">
+
+			<div class="panel-body">
+				<ul class="">
+					{% for c in categories %}
+					<li {% if category.slug == c.slug %}class="selected" {% endif %}>
+						<a href="{{ c.get_absolute_url }}"style="font-size:20px;"><i class="fa fa-angle-right"></i>{{ c.name }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</section>
+	</div>
+	<div class="col-10" >
+		<h1 style="color:#FFFDD7; margin-left: 5%; margin-top:20px;">{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+		<h3 style="margin-left: 5%;">{% if category %}{{ category.description|default_if_none:"&nbsp;" }}{% endif %}</h3>
+		<div class="row product-list" style="max-width: 1400px; max-height: 2000px; min-height: 600px; margin-left: 5%;">
+			{% for product in products %}
+			<div class="col-5" style="margin: 10px 10px;" >
+				<div style="display:block; position: relative">
+				<section class="panel row">
+					<div class="pro-img-box col-4" style="min-width: 100px;">
+						<a href="{{ product.get_absolute_url }}">
+							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
+							style="width:150px; float:left;">
+						</a>
+					</div>
+
+					<div class="panel-body text-center col-8">
+						<h4 class="font-weight-bold text-left">
+							<a href="{{ product.get_absolute_url }}" class="" title="Elegant designed coffee plant for desktop decoration"
+							   style="position: relative; font-size: 22px; color:#F06A23; ">{{ product.name }}
+							<p class="mr-2" style="color:#FFFDD7; font-size: 22px; display:inline; float:right;">${{ product.price }}</p>
+							</a>
+						</h4>
+                        <h3 class="font-weight-normal text-left" style="font-size: smaller">
+							<p class="mr-2" style="color:#FFFDD7; font-size: 18px; display:inline; float:right;">{{ product.description }}</p>
+						</h3>
+
+					</div>
+				</section>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+
+

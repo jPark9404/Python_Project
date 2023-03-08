@@ -1,0 +1,47 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Pay your order{% endblock %}
+{% block content %}
+  <h1 style="margin-top: .5%">Order summary</h1>
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th style="font-size: large">Image</th>
+        <th style="font-size: large">Product</th>
+        <th style="font-size: large">Price</th>
+        <th style="font-size: large">Quantity</th>
+        <th style="font-size: large">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.items.all %}
+        <tr class="row{% cycle "1" "2" %}">
+          <td>
+            <img src="{% if item.product.image %}{{ item.product.image.url }}
+            {% else %}{% static "img/no_image.png" %}{% endif %}"  style="width:590px; height:600px;">
+          </td>
+          <td style="font-size: large">{{ item.product.name }}</td>
+          <td class="num" style="font-size: large">${{ item.price }}</td>
+          <td class="num" style="font-size: large">{{ item.quantity }}</td>
+          <td class="num" style="font-size: large">${{ item.get_cost }}</td>
+        </tr>
+      {% endfor %}
+      <tr class="total" style="font-size: large">
+        <td colspan="4" style="font-size: large">Sub-Total</td>
+        <td class="num" style="font-size: large">${{ order.get_total_cost }}</td>
+      </tr>
+    <tr class="num" style="font-size: large">
+        <td colspan="4" style="font-size: large">GST</td>
+        <td class="num" style="font-size: large">${{ order.get_gst }}</td>
+      </tr>
+    <tr class="total" style="font-size: large">
+        <td colspan="4" style="font-size: large">Total</td>
+        <td class="num" style="font-size: large">${{ order.overall_cost }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <form action="{% url "payment:process" %}" method="post">
+    <input type="submit" value="Pay Now" style="font-size: x-large; background-color: #f06a23">
+    {% csrf_token %}
+  </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'main_home.html' %}
+{% block content %}
+<h2>Hello {{request.user}}! </h2>
+    <h3>Create a Holiday</h3>
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+            <br>
+            <div id="submit">
+                <p><input  type="submit" value="Submit"></p>
+            </div>
+        </form>
+    
+    </div>
+
+{% endblock content %} 

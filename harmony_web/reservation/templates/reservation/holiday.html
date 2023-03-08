@@ -1,0 +1,24 @@
+{% extends 'main_home.html' %}
+{% block content %}
+    <div>
+ {% include 'reservation/reservation_navbar.html' %}
+       <h3>Holidays</h3>
+       <table id="holidays">
+        <tr>
+            <th>Holiday Name</th>
+            <th>Date</th>
+            <th>Is the restaurant open?</th>
+          </tr>
+            {% for holiday in holidays %}
+            <tr>
+                <td>{{holiday.name}}</td>
+                <td>{{holiday.date}}</td>
+                <td>{{holiday.active}}</td>
+                <hr>
+            </tr>
+            {% endfor %}
+            <!-- can add more detail in the the holiday(e.g. is the store closed)-->
+        </table>
+    </div>
+
+{% endblock content %} 

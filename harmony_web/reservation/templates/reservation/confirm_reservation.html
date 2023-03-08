@@ -1,0 +1,199 @@
+{% extends 'main_home.html' %}
+{% load static %}
+{% block content %}
+
+  <div class="stepper-horizontal" id="stepper1">
+      <div class="step editing">
+        <div class="step-circle"><span>1</span></div>
+        <div class="step-title" style="color: #829ab1">Enter details</div>
+        <div class="step-bar-left"></div>
+        <div class="step-bar-right"></div>
+      </div>
+      <div class="step stepper-horizontal" id="stepper2">
+        <div class="step-circle"><span>2</span></div>
+        <div class="step-title">Confirmed</div>
+        <div class="step-bar-left"></div>
+        <div class="step-bar-right"></div>
+      </div>
+  </div>
+  
+  <div class="my-3 p-3 bg-body rounded shadow-sm" style="margin-left: 5%;">
+      <h3 class="border-bottom pb-2 mb-0">Thank you for confirming!</h3>
+    <div class="col-md-4 mb-3">
+  
+      <div class="fwght-500">{{ reserve.fullname }}</div>
+      <div class="">{{ reserve.phone_number }}</div>
+      <div class="">{{ reserve.user_email }}</div>
+      <br>
+      <div class="fwght-500">RESERVATION DETAILS:</div>
+      <div class="">{{ reserve.num_of_people }} people</div>
+      <div class="">{{ reserve.reservation_date }}</div>
+      <div class="">{{ reserve.reservation_time }}</div>
+      <br>
+      <div class="">HARMONY RETAURANT</div>
+      <div class="">202 17 Ave SE, Calgary, AB T2G 1H4</div>
+      <div class="">Tel No. +1 (825) 438-4154</div>
+
+      <div class="d-block text-end mt-3">
+          <a href="{% url 'simple_reservation' %}" class="Accent1-bg" style="margin-right: 20px;">
+              <button class="btn Accent1-bg ">Go Back</button></a>
+          
+          <a href="{% url 'delete_reservation' reserve.created %}" class="Accent2-bg">
+              <button class="btn Accent2-bg ">Cancel Reservation</button>
+          </a>
+      </div>
+    </div>
+    <div class="position-fixed">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.818369000988!2d-114.06304188401133!3d51.03797527956077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371717a527cc2cb%3A0x890990248c68e855!2sHarmony%20Restaurant!5e0!3m2!1sen!2sca!4v1667960352153!5m2!1sen!2sca"
+        width="350"
+        height="400"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ruthie&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;500&display=swap');
+    .position-fixed {
+     position: absolute;
+     overflow: hidden;
+     top: 250px;
+     right: 30px;
+   
+   }
+
+    body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 300;
+    }
+    .ruthie-font {
+    font-family: 'Ruthie', cursive;
+    font-size: 4em;
+    }
+    .Primary {
+        color: #EB2328;
+    }
+    .Accent1 {
+    color: #F06A23;
+    }
+    .fwght-500 {
+        font-weight:500;
+    }
+    .Accent1-bg {
+    color: #FFFDD7;
+    background-color: #F06A23;
+    }
+    .Accent2 {
+        color: #FBAF18;
+    }
+    .Accent2-bg {
+        background-color: #FBAF18;
+    }
+        
+      .stepper-horizontal {
+  display: table;
+  width: 100%;
+  margin: 0 auto;
+}
+.stepper-horizontal .step {
+  display: table-cell;
+  position: relative;
+  padding: 1.5rem;
+  z-index: 2;
+  width: 25%;
+}
+.stepper-horizontal .step:last-child .step-bar-left, .stepper-horizontal .step:last-child .step-bar-right {
+  display: none;
+}
+.stepper-horizontal .step .step-circle {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 2;
+  border: 2px solid #199473;;
+  
+}
+.stepper-horizontal .step.done .step-circle {
+  background-color: #199473;
+  border: 2px solid #199473;
+  color: #ffffff;
+}
+.stepper-horizontal .step.done .step-circle:before {
+  font-family: "FontAwesome";
+  font-weight: 100;
+  content: "";
+}
+.stepper-horizontal .step.done .step-circle * {
+  display: none;
+}
+.stepper-horizontal .step.done .step-title {
+  color: #102a43;
+}
+.stepper-horizontal .step.editing .step-circle {
+  background: #ffffff;
+  border-color: #199473;
+  color: #199473;
+}
+.stepper-horizontal .step.editing .step-title {
+  color: #199473;
+}
+.stepper-horizontal .step .step-title {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #199473;
+}
+.stepper-horizontal .step .step-title,
+.stepper-horizontal .step .step-optional {
+  text-align: center;
+  color: #199473;
+}
+.stepper-horizontal .step .step-optional {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #9fb3c8;
+}
+.stepper-horizontal .step .step-bar-left,
+.stepper-horizontal .step .step-bar-right {
+  position: absolute;
+  top: calc(2rem + 5px);
+  height: 5px;
+  background-color: #d9e2ec;
+  border: solid #d9e2ec;
+  border-width: 2px 0;
+}
+.stepper-horizontal .step .step-bar-left {
+  width: calc(100% - 2rem);
+  left: 50%;
+  margin-left: 1rem;
+  z-index: -1;
+  background-color: #199473;
+  border-color: #199473;
+}
+.stepper-horizontal .step .step-bar-right {
+    
+  width: 0;
+  left: 50%;
+  margin-left: 1rem;
+  z-index: -1;
+  transition: width 500ms ease-in-out;
+}
+.stepper-horizontal .step.done .step-bar-right {
+  background-color: #199473;
+  border-color: #199473;
+  z-index: 3;
+  width: calc(100% - 2rem);
+}
+</style>
+{% endblock content %}

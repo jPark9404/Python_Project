@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Harmony{% endblock %}</title>
+    <link href="{% static 'main.css' %}" rel="stylesheet" />
+    <link href="{% static 'styles/main.css' %}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ruthie&family=Urbanist:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+  </head>
+
+  <!-- class="pricing-header p-3 pb-md-4 mx-auto text-center" -->
+  <body>
+    <!-- Header -->
+    <div class="home" style="height: 700px;">
+      {% include 'navbar.html' %} 
+      {% include 'home/homePage.html' %}
+    </div>
+
+
+    <div style="background-color: #222021">
+      <!-- About us -->
+      <div>
+        <a id="section_aboutUs">   
+          <section class="p-3 pb-md-4 mx-auto text-center">
+            {% include 'home/aboutUs_home.html' %}
+          </section>
+        </a>
+      </div>
+      <br />
+
+      <!-- ContactMe -->
+      <div style="margin-bottom: 10%;">
+        <a
+          href="#top"
+          
+          style="
+            float: right;
+            margin-right: 3%;
+            color: #fffdd7;
+            top: 3%;
+            right: 1px;
+            position: fixed;
+          "
+          >Top</a
+        >
+        <br />
+        <a id="section_contact">
+          {% include 'home/contact_home.html' %}
+        </a>
+      </div>
+
+
+      <!-- Customer Reviews -->
+      <div style="min-height: 700px; padding-top: 5%;">
+        <br />
+        
+        {% include 'home/customerReviews_home.html' %}
+      </div>
+      <div style="margin-bottom: 10%;">
+      </div>
+
+      <!-- Follow us -->
+      <div>
+        <br />
+        <section
+          class="p-3 pb-md-4 mx-auto text-center"
+          style="min-height: 300px; max-height: 750px;"        
+          >
+          {% include 'home/followUs_home.html' %}
+        </section>
+      </div>
+    </div>
+
+    <div class="home">
+      <br />
+      <footer class="p-3 pb-md-4 mx-auto text-center">
+        COPYRIGHT 2022 - ALL RIGHTS RESERVED FOR HARMONY RESTAURANT AND BAR
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+  Your shopping cart
+{% endblock %}
+{% block content %}
+
+    <h1 style="margin-top: .25%">Your shopping cart</h1>
+  <table class="table table-light">
+    <thead >
+      <tr>
+        <th style="font-size: large">Image</th>
+        <th style="font-size: large">Product</th>
+        <th style="font-size: large">Quantity</th>
+        <th style="font-size: large">Comments</th>
+        <th style="font-size: large">Remove</th>
+        <th style="font-size: large">Unit price</th>
+        <th style="font-size: large">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr>
+            <td>
+              <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}
+                {% else %}{% static "img/no_image.png" %}{% endif %}" style="width:590px; height:600px;">
+              </a>
+            </td>
+            <td style="font-size: large">{{ product.name }}</td>
+            <td style="font-size: large">
+                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.override }}
+                    <input type="submit" value="Update" style="font-size: 15px; background-color:#f06a23">
+                    {% csrf_token %}
+                </form>
+            </td>
+            <td style="font-size: large">
+              {{ item.comment }}
+            </td>
+            <td style="font-size: large">
+              <form action="{% url "cart:cart_remove" product.id %}" method="post">
+                <input type="submit" value="Remove" style="font-size: 15px; background-color:#f06a23">
+                {% csrf_token %}
+              </form>
+            </td>
+            <td class="num" style="font-size: large">${{ item.price }}</td>
+            <td class="num" style="font-size: large">${{ item.total_price }}</td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      <tr class="total">
+
+        <td style="font-size: large">Sub Total</td>
+
+        <td colspan="5" ></td>
+
+        <td class="num" style="font-size: large">${{ cart.get_sub_total_price }}</td>
+
+      </tr>
+
+      <tr class="gst" >
+
+        <td style="font-size: large">GST</td>
+
+        <td colspan="5"></td>
+
+        <td class="num" style="font-size: large">${{ cart.get_gst }}</td>
+
+      </tr>
+
+      <tr class="total">
+
+        <td style="font-size: large">Total</td>
+
+        <td colspan="5"></td>
+
+        <td class="num" style="font-size: large;">${{ cart.get_total_price}}</td>
+
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-right">
+    <a href="{% url "shop:product_list" %}" class="button
+    light" style="font-size: 20px">Continue shopping</a>
+    <a href="{% url "orders:order_create" %}" class="button" style="font-size: 20px; background-color:#f06a23 ">Checkout</a>
+  </p>
+
+
+  {% endblock %}

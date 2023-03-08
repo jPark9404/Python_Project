@@ -1,0 +1,66 @@
+/* Colors
+Primary: #EB2328
+Secondary: #222021
+Accent1: #F06A23
+Accent2: #FBAF18
+Accent3: #FFFDD7
+*/
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Ruthie&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@300;500&display=swap");
+.home{
+  background-image: url("Main.jpg");
+
+}
+body {
+  background-image: url("Main.jpg");
+  background-color: #222021;
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  position: relative;
+  color: white;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 500;
+}
+
+.top{
+  float:right; 
+  margin-right: 10%;
+}
+
+.ruthie-font {
+  font-family: "Ruthie", cursive;
+  font-size: 1.5em;
+}
+.Primary {
+  color: #eb2328;
+}
+.Accent1 {
+  color: #F06A23;
+}
+.Accent2 {
+  color: #FAAF18;
+}
+.Accent3 {
+  color: #FFFDD7;
+}
+.Accent4 {
+  color: #D9D9D9;
+}
+.Accent1-bg {
+  color: #fffdd7;
+  background-color: #f06a23;
+}
+.nav.nav-pills.nav-fill li a{
+    color: #F06A23;
+}
+
+
+
+
+

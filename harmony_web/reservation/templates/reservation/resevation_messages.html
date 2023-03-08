@@ -1,0 +1,34 @@
+{% extends 'main_home.html' %}
+{% load static %}
+{% block content %}
+
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h3 class=" fw-normal Primary">{{ header }}</h3>
+    <p class="fs-5 text-muted">{{ body }}</p>
+    <p class="fs-5 text-muted">{{ message }}</p>
+  </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ruthie&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;500&display=swap');
+        body {
+        background-color: rgb(0, 0, 0);
+        color: white;
+        font-family: 'Urbanist', sans-serif;
+        font-weight: 500;
+        }
+        .ruthie-font {
+        font-family: 'Ruthie', cursive;
+        font-size: 4em;
+        }
+        .Primary {
+            color: #EB2328;
+        }
+        .Accent1 {
+        color: #F06A23;
+        }
+        .Accent1-bg {
+        color: #FFFDD7;
+        background-color: #F06A23;
+        }
+    </style>
+{% endblock content %}

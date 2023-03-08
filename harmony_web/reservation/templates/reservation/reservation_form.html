@@ -1,0 +1,330 @@
+{% extends 'main_home.html' %}
+{% block content %}
+
+  <div> 
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h3 class=" pb-1 mb-0 ruthie-font" style="color: #EB2328">Table Reservation</h3>
+      <div>202 17 Ave SE, Calgary, AB T2G 1H4</div>
+      <div>Tel No +1 (825) 438-4154</div>
+    </div>
+    <div class="stepper-horizontal" id="stepper1">
+        <div class="step editing">
+          <div class="step-circle"><span>1</span></div>
+          <div class="step-title">Enter details</div>
+          <div class="step-bar-left"></div>
+          <div class="step-bar-right"></div>
+        </div>
+        <div class="step">
+          <div class="step-circle"><span>2</span></div>
+          <div class="step-title">Confirm</div>
+          <div class="step-bar-left"></div>
+          <div class="step-bar-right"></div>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 bg-body rounded shadow-sm" style="margin-right: 10%;">
+      
+  
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-row">
+          
+          <div class="col-md-4 mb-3 mx-auto text-center">
+            <p class="Accent1" style="font-weight: 500">REGULAR <br>OPENING HOURS</p> 
+          </div>
+        
+          <div class="col-md-4 mb-3">
+            <label for="id_fullname">Full name:</label>
+            <input type="text" name="fullname" maxlength="100" required="" id="id_fullname" class="form-control" >
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="id_num_of_people">Group Size:</label>
+            <select name="num_of_people" class="custom-select " id="id_num_of_people" required>
+                {% for num in options_group_size %}
+                  <option value="{{ num }}" >{{ num }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          
+        </div>
+        
+        <div class="form-row">
+          
+          <div class="col-md-4 mb-3 mx-auto text-center">
+            <p >MONDAY - THURSDAY <br>4:00 PM – 12:00 AM</p>
+          
+          </div>
+
+          <div class="col-md-4 mb-3">
+              <label for="id_user_email">Email address:</label>
+              <input type="text" name="user_email" maxlength="254" required="" id="id_user_email" class="form-control">
+          </div>
+
+
+          <div class="col-md-4 mb-3">
+              <label for="id_phone_number">Phone Number:</label>
+              <input type="text" name="phone_number" maxlength="100" required="" id="id_phone_number" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-row">
+
+          <div class="col-md-4 mb-3 mx-auto text-center">
+            <p >FRIDAY<br>4:00 PM – 2:00 AM</p>
+            <p >SATURDAY<br>11:00 AM – 02:00 AM</p>
+          </div>
+
+          <div class="col-md-4 mb-3">
+              <label for="id_reservation_date">Reservation Date:</label>
+              <input class="form-control " name="reservation_date"  type="date" id="id_reservation_date" name="trip-start" value="{{ today|date:'Y-m-d' }}" min="{{ today|date:'Y-m-d' }}" max="2023-12-31">
+          </div>
+
+
+          <div class="col-md-4 mb-3">
+              <label for="id_reservation_time">Reservation Time:</label>
+              <select name="reservation_time" class="custom-select " id="id_reservation_time" required>
+                  {% for hour in available_time %}
+                      <option value="{{ hour.time }}">{{ hour.time }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+
+
+          
+        </div>
+        <div class="form-row">
+          <div class="col-md-4 mb-3 mx-auto text-center">
+            <p class="">SUNDAY <br>11:00 AM – 12:00 AM</p>
+          </div>
+
+          <div class="col-md-8 mb-3 mx-auto text-center">
+            <div class="submit">
+              <p>
+                <button class="btn Accent1-bg " type="submit" value="Submit">MAKE A RESERVATION</button>
+              </p>
+            </div>
+          </div>
+
+         
+        </div>
+        <br>
+        
+      </form>
+    </div>
+  </div>
+
+  <script>
+      const isNumericInput = (event) => {
+      const key = event.keyCode;
+      return ((key >= 48 && key <= 57) || // Allow number line
+          (key >= 96 && key <= 105) // Allow number pad
+      );
+  };
+  
+  const isModifierKey = (event) => {
+      const key = event.keyCode;
+      return (event.shiftKey === true || key === 35 || key === 36) || // Allow Shift, Home, End
+          (key === 8 || key === 9 || key === 13 || key === 46) || // Allow Backspace, Tab, Enter, Delete
+          (key > 36 && key < 41) || // Allow left, up, right, down
+          (
+              // Allow Ctrl/Command + A,C,V,X,Z
+              (event.ctrlKey === true || event.metaKey === true) &&
+              (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
+          )
+  };
+  
+  const enforceFormat = (event) => {
+      // Input must be of a valid number format or a modifier key, and not longer than ten digits
+      if(!isNumericInput(event) && !isModifierKey(event)){
+          event.preventDefault();
+      }
+  };
+  
+  const formatToPhone = (event) => {
+      if(isModifierKey(event)) {return;}
+  
+      // I am lazy and don't like to type things more than once
+      const target = event.target;
+      const input = event.target.value.replace(/\D/g,'').substring(0,10); // First ten digits of input only
+      const zip = input.substring(0,3);
+      const middle = input.substring(3,6);
+      const last = input.substring(6,10);
+  
+      if(input.length > 6){target.value = `(${zip}) ${middle} - ${last}`;}
+      else if(input.length > 3){target.value = `(${zip}) ${middle}`;}
+      else if(input.length > 0){target.value = `(${zip}`;}
+  };
+  /////////////////////////////////////////////////////////
+  var currentStep = 1;
+  var numSteps = 4;
+  
+  function nextStep() {
+    currentStep++;
+    if (currentStep > numSteps) {
+      currentStep = 1;
+    }
+    var stepper = document.getElementById('stepper1');
+    var steps = stepper.getElementsByClassName('step');
+    
+    Array.from(steps).forEach((step, index) => {
+          let stepNum = index + 1;
+      if (stepNum === currentStep) {
+        addClass(step, 'editing');
+      } else {
+        removeClass(step, 'editing');
+      }    
+      if (stepNum < currentStep) {
+        addClass(step, 'done');
+      } else {
+        removeClass(step, 'done');
+      }
+    })  
+  }
+  
+  
+  /* get, set class, see https://ultimatecourses.com/blog/javascript-hasclass-addclass-removeclass-toggleclass */
+  
+  function hasClass(elem, className) {
+      return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+  }
+  
+  function addClass(elem, className) {
+      if (!hasClass(elem, className)) {
+          elem.className += ' ' + className;
+      }
+  }
+  
+  function removeClass(elem, className) {
+      var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+      if (hasClass(elem, className)) {
+          while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+              newClass = newClass.replace(' ' + className + ' ', ' ');
+          }
+          elem.className = newClass.replace(/^\s+|\s+$/g, '');
+      }
+  }
+
+  ////
+  const inputElement = document.getElementById('id_phone_number');
+  inputElement.addEventListener('keydown',enforceFormat);
+  inputElement.addEventListener('keyup',formatToPhone);
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ruthie&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;500&display=swap');
+    body {
+      background-color: rgb(0, 0, 0);
+      color: #FFFDD7;
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 300;
+    }
+    .ruthie-font {
+      font-family: 'Ruthie', cursive;
+      font-size: 4em;
+    }
+    .Accent1 {
+      color: #F06A23;
+    }
+    .Accent1-bg {
+      color: #FFFDD7;
+      background-color: #F06A23;
+    }
+
+  .stepper-horizontal {
+  display: table;
+  width: 100%;
+  margin: 0 auto;
+}
+.stepper-horizontal .step {
+  display: table-cell;
+  position: relative;
+  padding: 1.5rem;
+  z-index: 2;
+  width: 25%;
+}
+.stepper-horizontal .step:last-child .step-bar-left, .stepper-horizontal .step:last-child .step-bar-right {
+  display: none;
+}
+.stepper-horizontal .step .step-circle {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 2;
+  border: 2px solid #d9e2ec;
+}
+.stepper-horizontal .step.done .step-circle {
+  background-color: #199473;
+  border: 2px solid #199473;
+  color: #ffffff;
+}
+.stepper-horizontal .step.done .step-circle:before {
+  font-family: "FontAwesome";
+  font-weight: 100;
+  content: "";
+}
+.stepper-horizontal .step.done .step-circle * {
+  display: none;
+}
+.stepper-horizontal .step.done .step-title {
+  color: #102a43;
+}
+.stepper-horizontal .step.editing .step-circle {
+  background: #ffffff;
+  border-color: #199473;
+  color: #199473;
+}
+.stepper-horizontal .step.editing .step-title {
+  color: #199473;
+}
+.stepper-horizontal .step .step-title {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.stepper-horizontal .step .step-title,
+.stepper-horizontal .step .step-optional {
+  text-align: center;
+  color: #829ab1;
+}
+.stepper-horizontal .step .step-optional {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #9fb3c8;
+}
+.stepper-horizontal .step .step-bar-left,
+.stepper-horizontal .step .step-bar-right {
+  position: absolute;
+  top: calc(2rem + 5px);
+  height: 5px;
+  background-color: #d9e2ec;
+  border: solid #d9e2ec;
+  border-width: 2px 0;
+}
+.stepper-horizontal .step .step-bar-left {
+  width: calc(100% - 2rem);
+  left: 50%;
+  margin-left: 1rem;
+  z-index: -1;
+}
+.stepper-horizontal .step .step-bar-right {
+  width: 0;
+  left: 50%;
+  margin-left: 1rem;
+  z-index: -1;
+  transition: width 500ms ease-in-out;
+}
+.stepper-horizontal .step.done .step-bar-right {
+  background-color: #199473;
+  border-color: #199473;
+  z-index: 3;
+  width: calc(100% - 2rem);
+}
+  </style>
+{% endblock content %}

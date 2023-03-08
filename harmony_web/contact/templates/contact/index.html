@@ -1,0 +1,26 @@
+
+{% extends 'main_home.html' %}
+
+{% block content %}
+
+    <body>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.818369000988!2d-114.06304188401133!3d51.03797527956077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371717a527cc2cb%3A0x890990248c68e855!2sHarmony%20Restaurant!5e0!3m2!1sen!2sca!4v1667960352153!5m2!1sen!2sca" width="350" height="400" style="border:0; float: left;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <h1 style>Message Us</h1>
+
+        <form method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Full name">
+            <br>
+            <input type="text" name="phone_number" placeholder="Phone Number">
+            <br>
+            <input type="text" name="email" placeholder="Email">
+            <br>
+            <textarea name="content" placeholder="How Can we help you?"></textarea>
+            <br>
+
+            <button>Submit</button>
+        </form>
+    </body>
+
+
+{% endblock %}

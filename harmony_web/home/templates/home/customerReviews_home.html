@@ -1,0 +1,111 @@
+
+
+
+
+{% block content %}
+
+
+<!--  -->
+
+<section class="customer-review">
+  <style>
+    .customer-review{height: 600px;}
+    .customer-review-bottom{transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;margin-top: 20px;margin-bottom: 0px;position: relative;height: 130px;top: 190px}
+    .customer-review h3{color: var(--orange);font-size: 14px;font-weight: 500;text-transform: uppercase}
+    .customer-review h2{color: #eb2328;font-size: 60px;}
+    .reviews-inner{position: relative;top: -174px}
+    .reviews-pos{position: relative;top: 24px}
+    .reviews-inner .tour-desc{border-radius: 5px;padding: 40px}
+    .color-grey-3{font-family: "Fira Sans", sans-serif;font-size: 14px;color: #6c83a2}
+    .reviews-inner img.tm-people{width: 60px;height: 60px;-webkit-border-radius: 50%;border-radius: 50%;-o-object-fit: cover;object-fit: cover;max-width: none}
+    .link-name{font-family: "Fira Sans", sans-serif;font-size: 14px;color: #6c83a2}
+    .link-position{font-family: "Fira Sans", sans-serif;font-size: 12px;color: #6c83a2}
+    .active-star {
+    color: #fbc02d;
+    margin-bottom: 8px;
+  }
+  </style>
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-center reviews-pos">
+      <div class="col-md-12 d-flex ruthie-font justify-content-center">
+          <h2 style="margin-left: 5px;">Customer Review</h2>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div style=" width:150px;">
+            <a href="https://www.google.ca/maps/place/Harmony+Restaurant/@51.0382185,-114.0627084,17.25z/data=!4m7!3m6!1s0x5371717a527cc2cb:0x890990248c68e855!8m2!3d51.0379753!4d-114.0608532!9m1!1b1?hl=en"
+               class="btn Accent1-bg " type="submit" value="Submit" style=" display:inline-block; margin-left: 10px;" target="_blank">More Review</a>
+        </div>
+      </div>
+  </div>
+      <section class="customer-review-bottom">
+          <div class="container reviews-inner">
+              <div class="row d-flex justify-content-center" >
+                {% for review in reviews %}
+                  <div class="col-md-4 style-3">
+                      <div class="tour-item">
+                          <div class="tour-desc bg-white">
+                              <div class="tour-text color-grey-3 text-center">&ldquo;{{review.Text}}...&rdquo;</div>
+                              <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="{{review.Photo}}" alt=""></div>
+                              <div class="link-name d-flex justify-content-center">{{review.Name}}</div>
+                              <div class="link-position d-flex justify-content-center">{{review.Date}}</div>
+                               <!--  -->
+                              {% if review.Rating == 5 %}
+                                <div class="row">
+                                  <div class="col text-center">
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: 20px;"></i>
+                                    <style>
+                                      .checked {
+                                        color: #faaf18;
+                                      }
+                                    </style>
+                                  </div>
+                                </div>
+                                
+                              {% elif review.Rating >= 4.5%}
+                                <div class="row">
+                                  <div class="col text-center">
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size:15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star-half-o fa-3x checked" style="width:1px; font-size: 15px; margin-right: 20px;"></i>
+                                    <style>
+                                      .checked {
+                                        color: #faaf18;
+                                      }
+                                    </style>
+                                  </div>
+                                </div>
+                              {%else%}
+                                <div class="row">
+                                  <div class="col text-center">
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size:15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: -30px;"></i>
+                                    <i class="fa fa-star fa-3x checked" style="width:1px; font-size: 15px; margin-right: 20px;"></i>
+                                    <style>
+                                      .checked {
+                                        color: #faaf18;
+                                      }
+                                    </style>
+                                  </div>
+                                </div>
+                        
+                              {% endif %}
+  
+                          </div>
+                      </div>
+                      
+                  </div>
+                  {% endfor %}
+                  
+              </div>
+      </section>
+</section>
+    {% endblock content %}
+
+

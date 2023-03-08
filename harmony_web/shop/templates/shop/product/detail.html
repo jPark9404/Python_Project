@@ -1,0 +1,31 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+{% block content %}
+  <div class="product-detail row"style="margin-top:90px;">
+    <div class="col-7"  style="align-items:center; display: flex; justify-content:center;">
+        <img src="{% if product.image %}{{ product.image.url }}{% else %}
+        {% static "img/no_image.png" %}{% endif %}" style="width:590px; height:600px;"/>
+    </div>
+      <div class="col-5">
+        <h1 style="color:#F06A23;">{{ product.name }}</h1>
+        <h2>
+          <a href="{{ product.category.get_absolute_url }}" style="color:#FFFDD7; ">
+            {{ product.category }}
+          </a>
+        </h2>
+        <p class="price" style="color:#FFFDD7;">${{ product.price }}</p>
+        <form action="{% url "cart:cart_add" product.id %}" method="post" style="font-size: x-large">
+           <p style="color:#FFFDD7;"> {{ cart_product_form }}</p>
+            {% csrf_token %}
+            <p class="font-weight-lighter" style="color:#FFFDD7">{{ product.description|linebreaks }}</p>
+            {#<h3 style="color:#FFFDD7;">Addidtional Comments:</h3>#}
+          {#<p style="color:#FFFDD7;">{{ items.comment|linebreaks }}</p>#}
+            <input class="btn Accent1-bg" type="submit" value="Add to cart"
+            style="background-color: #f06a23; color: #fffdd7; font-size: x-large">
+        </form>
+      </div>
+  </div>
+{% endblock %}
