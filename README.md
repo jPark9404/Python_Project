@@ -1,7 +1,5 @@
 #Python Project
 
-1. JP Website
+Restaurant Web Application
  - Django Framework
-
-2. Harmony Restaurant
- - Django Framework
+ - Functionalities: Reservation, Payment, Contact, and online ordering.
